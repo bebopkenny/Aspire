@@ -5,14 +5,43 @@ const express = require('express')
 const app = express()
 const PORT = 8383
 
-// HTTP VERBS AND ROUTES (or paths)
+let data = {
+    name: 'james'
+}
+
+// ENDPOINT - HTTP VERBS (method aka the action) AND ROUTES (or paths)
 // The method informs the nature of request and the route is a futher subdirectory
 // (basically we direct the request to the body of code to respond appropriately, and 
 // these locations or routes are called endpoints)
+
+
+
+// Type 1 - Website endpoints (these endpoints are for sending back html and they tipically 
+// come when a user enters a url in a browser)
+
 app.get('/', (req, res) => {
     // this is endpoint number 1 - /
-    console.log('Yay I hit an endpoint', req.method)
-    res.sendStatus(201)
+    res.send(`
+        <body>
+        <h1>Data</h1>
+            <p>${JSON.stringify(data)}</p>
+        </body>
+        `)
 })
+
+app.get('/dashboard', (req, res) => {
+    res.send('<h1>dashboard</h1>')
+})
+
+// Type 2 - API endpoints (non visual)
+
+// CRUD-method create-post read-get update-put and delete-delete
+
+app.get('/api/data', (req, res) => {
+    console.log('this is for data')
+    res.send(data)
+})
+
+
 
 app.listen(PORT, () => console.log(`Server has started on: ${PORT}`))
